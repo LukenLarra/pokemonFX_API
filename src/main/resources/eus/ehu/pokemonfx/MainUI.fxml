@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.pokemonfx.MainUIController">
+   <children>
+      <TextArea fx:id="content" layoutX="57.0" layoutY="36.0" prefHeight="157.0" prefWidth="486.0" />
+      <ImageView fx:id="icon" fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="name" layoutX="151.0" layoutY="401.0" />
+      <Button layoutX="374.0" layoutY="401.0" mnemonicParsing="false" onAction="#actionGet" text="Get It!" />
+   </children>
+</AnchorPane>
