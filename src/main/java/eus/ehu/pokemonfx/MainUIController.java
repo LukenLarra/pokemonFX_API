@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import com.google.gson.Gson;
+import okhttp3.internal.Util;
+
+import java.io.IOException;
 
 public class MainUIController {
 
@@ -23,18 +26,24 @@ public class MainUIController {
 
     @FXML
     void actionGet(ActionEvent event) {
-
-    }
-
-    @FXML
-    void initialize() {
         Gson gson = new Gson();
-        String json = Utils.readFile("2024-04-18T160842.200.json");
+        String json = null;
+        try {
+            json = Utils.query("https://pokeapi.co/api/v2/pokemon/" + name.getText().toLowerCase());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //String json = Utils.readFile("2024-04-18T160842.200.json");
         Pokemon pokemon = gson.fromJson(json, Pokemon.class);
 
         String url = pokemon.getSprite();
         icon.setImage(new Image(url));
         content.setText(Utils.readFile(pokemon.toString()));
+    }
+
+    @FXML
+    void initialize() {
+
 
 
     }
