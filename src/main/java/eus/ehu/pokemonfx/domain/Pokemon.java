@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 public class Pokemon {
 
     private String name;
-    private String type;
     private Integer height;
     private Integer weight;
     private Integer id;
@@ -16,10 +15,6 @@ public class Pokemon {
 
     public String getName() {
         return name;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public Integer getHeight() {
@@ -82,7 +77,6 @@ public class Pokemon {
         return "Pokemon{" +
                 "height=" + height +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
                 ", weight=" + weight +
                 ", id=" + id +
                 ", sprites=" + sprites +

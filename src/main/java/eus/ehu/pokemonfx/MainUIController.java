@@ -6,7 +6,6 @@ import eus.ehu.pokemonfx.domain.Pokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,14 +32,11 @@ public class MainUIController {
     private Label nameLbl;
 
     @FXML
-    private Label typeLbl;
-
-    @FXML
     private Label weightLbl;
 
     private int currentId = 1;
 
-    private int maxId;
+    private int maxId = 10277;
 
     @FXML
     void actionGet(ActionEvent event) {
@@ -69,10 +65,10 @@ public class MainUIController {
             if (!name.getText().isEmpty()){
                 json = Utils.query("https://pokeapi.co/api/v2/pokemon/" + name.getText());
             }else {
+                if (currentId == 1026) currentId = 10001;
+                if (currentId == 10000) currentId = 1025;
                 json = Utils.query("https://pokeapi.co/api/v2/pokemon/" + currentId);
             }
-            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-            maxId = jsonObject.get("count").getAsInt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -82,7 +78,6 @@ public class MainUIController {
         String url = pokemon.getSprite();
         icon.setImage(new Image(url));
         nameLbl.setText(pokemon.getName());
-        typeLbl.setText(pokemon.getType());
         heightLbl.setText(String.valueOf(pokemon.getHeight()));
         weightLbl.setText(String.valueOf(pokemon.getWeight()));
         idLbl.setText(String.valueOf(pokemon.getId()));
