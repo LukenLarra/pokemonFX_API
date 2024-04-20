@@ -1,22 +1,21 @@
 package eus.ehu.pokemonfx;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import eus.ehu.pokemonfx.domain.Pokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import com.google.gson.Gson;
-import okhttp3.internal.Util;
 
 import java.io.IOException;
 
 public class MainUIController {
-
-    @FXML
-    private TextArea content;
 
     @FXML
     private ImageView icon;
@@ -25,11 +24,55 @@ public class MainUIController {
     private TextField name;
 
     @FXML
+    private Label heightLbl;
+
+    @FXML
+    private Label idLbl;
+
+    @FXML
+    private Label nameLbl;
+
+    @FXML
+    private Label typeLbl;
+
+    @FXML
+    private Label weightLbl;
+
+    private int currentId = 1;
+
+    private int maxId;
+
+    @FXML
     void actionGet(ActionEvent event) {
+        searchPokemon();
+    }
+
+    @FXML
+    void nextPokemon(ActionEvent event) {
+        if (currentId == maxId) currentId = 1;
+        else currentId++;
+        searchPokemon();
+    }
+
+    @FXML
+    void previousPokemon(ActionEvent event) {
+        if (currentId == 1) currentId = maxId;
+        else currentId--;
+        searchPokemon();
+    }
+
+    @FXML
+    void searchPokemon() {
         Gson gson = new Gson();
-        String json = null;
+        String json;
         try {
-            json = Utils.query("https://pokeapi.co/api/v2/pokemon/" + name.getText().toLowerCase());
+            if (!name.getText().isEmpty()){
+                json = Utils.query("https://pokeapi.co/api/v2/pokemon/" + name.getText());
+            }else {
+                json = Utils.query("https://pokeapi.co/api/v2/pokemon/" + currentId);
+            }
+            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+            maxId = jsonObject.get("count").getAsInt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -38,12 +81,18 @@ public class MainUIController {
 
         String url = pokemon.getSprite();
         icon.setImage(new Image(url));
-        content.setText(Utils.readFile(pokemon.toString()));
+        nameLbl.setText(pokemon.getName());
+        typeLbl.setText(pokemon.getType());
+        heightLbl.setText(String.valueOf(pokemon.getHeight()));
+        weightLbl.setText(String.valueOf(pokemon.getWeight()));
+        idLbl.setText(String.valueOf(pokemon.getId()));
+        currentId = pokemon.getId();
+        name.clear();
     }
 
     @FXML
     void initialize() {
-
+        searchPokemon();
 
 
     }

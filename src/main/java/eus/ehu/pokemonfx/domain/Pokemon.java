@@ -14,6 +14,26 @@ public class Pokemon {
         return sprites.other.officialArtwork.front_default;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
     class SpriteWrapper {
         String front_default;
         String back_default;
