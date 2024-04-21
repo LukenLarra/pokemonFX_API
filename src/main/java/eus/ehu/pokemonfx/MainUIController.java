@@ -2,7 +2,9 @@ package eus.ehu.pokemonfx;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import eus.ehu.pokemonfx.domain.Pokemon;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -33,6 +35,9 @@ public class MainUIController {
 
     @FXML
     private Label weightLbl;
+
+    @FXML
+    private Label errorMsg;
 
     private int currentId = 1;
 
@@ -72,14 +77,23 @@ public class MainUIController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //String json = Utils.readFile("2024-04-18T160842.200.json");
-        Pokemon pokemon = gson.fromJson(json, Pokemon.class);
+        Pokemon pokemon = null;
+        try {
+            pokemon = gson.fromJson(json, Pokemon.class);
+        } catch (JsonSyntaxException error) {
+            errorMsg.setText("Pokemon not found, type another name");
+            name.clear();
+            PauseTransition visiblePause = new PauseTransition(javafx.util.Duration.seconds(3));
+            visiblePause.setOnFinished(e -> errorMsg.setText(""));
+            visiblePause.play();
+            throw new RuntimeException(error);
+        }
 
         String url = pokemon.getSprite();
         icon.setImage(new Image(url));
         nameLbl.setText(pokemon.getName());
-        heightLbl.setText(String.valueOf(pokemon.getHeight()));
-        weightLbl.setText(String.valueOf(pokemon.getWeight()));
+        heightLbl.setText(pokemon.getHeight() +" cm");
+        weightLbl.setText(pokemon.getWeight() +" kg");
         idLbl.setText(String.valueOf(pokemon.getId()));
         currentId = pokemon.getId();
         name.clear();
