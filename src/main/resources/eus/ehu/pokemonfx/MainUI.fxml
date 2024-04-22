@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.pokemonfx.MainUIController">
    <children>
       <ImageView fx:id="icon" fitHeight="150.0" fitWidth="200.0" layoutX="41.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="name" layoutX="54.0" layoutY="231.0" />
+      <TextField fx:id="name" layoutX="54.0" layoutY="231.0" promptText="Enter Pokemon name" />
       <Button layoutX="104.0" layoutY="269.0" mnemonicParsing="false" onAction="#actionGet" text="Get It!" />
       <Button layoutX="477.0" layoutY="218.0" mnemonicParsing="false" onAction="#nextPokemon" text="Next" />
       <Button layoutX="324.0" layoutY="218.0" mnemonicParsing="false" onAction="#previousPokemon" text="Previous" />
