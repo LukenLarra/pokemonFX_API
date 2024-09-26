@@ -9,6 +9,7 @@ public class Pokemon {
     private Integer weight;
     private Integer id;
 
+    
     public String getSprite() {
         return sprites.other.officialArtwork.front_default;
     }
