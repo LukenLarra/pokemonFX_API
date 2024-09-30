@@ -6,6 +6,8 @@ module eus.ehu.pokemonfx {
     requires com.google.gson;
     requires okhttp3;
 
+
+    
     opens eus.ehu.pokemonfx to javafx.fxml;
     exports eus.ehu.pokemonfx;
 
